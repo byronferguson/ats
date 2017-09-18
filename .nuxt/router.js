@@ -8,17 +8,17 @@ const _a95130d4 = () => import('..\\pages\\services\\index.vue' /* webpackChunkN
 const _31e0e40a = () => import('..\\pages\\faq\\index.vue' /* webpackChunkName: "pages/faq" */).then(m => m.default || m)
 const _68294a42 = () => import('..\\pages\\locations\\index.vue' /* webpackChunkName: "pages/locations" */).then(m => m.default || m)
 const _a542061e = () => import('..\\pages\\hours\\index.vue' /* webpackChunkName: "pages/hours" */).then(m => m.default || m)
-const _36ad3b80 = () => import('..\\pages\\delivery\\index.vue' /* webpackChunkName: "pages/delivery" */).then(m => m.default || m)
+const _ead75ee8 = () => import('..\\pages\\estimate\\index.vue' /* webpackChunkName: "pages/estimate" */).then(m => m.default || m)
 const _c1103260 = () => import('..\\pages\\products\\index.vue' /* webpackChunkName: "pages/products" */).then(m => m.default || m)
-const _09e8181c = () => import('..\\pages\\calculator\\index.vue' /* webpackChunkName: "pages/calculator" */).then(m => m.default || m)
+const _36ad3b80 = () => import('..\\pages\\delivery\\index.vue' /* webpackChunkName: "pages/delivery" */).then(m => m.default || m)
 const _088f1598 = () => import('..\\pages\\services\\grading.vue' /* webpackChunkName: "pages/services-grading" */).then(m => m.default || m)
 const _3c7a6fd3 = () => import('..\\pages\\services\\spreading.vue' /* webpackChunkName: "pages/services-spreading" */).then(m => m.default || m)
 const _6a988da7 = () => import('..\\pages\\products\\mulch.vue' /* webpackChunkName: "pages/products-mulch" */).then(m => m.default || m)
 const _7c5c0e57 = () => import('..\\pages\\products\\rock.vue' /* webpackChunkName: "pages/products-rock" */).then(m => m.default || m)
 const _483c4fe0 = () => import('..\\pages\\services\\delivery.vue' /* webpackChunkName: "pages/services-delivery" */).then(m => m.default || m)
 const _22ef331e = () => import('..\\pages\\products\\soil.vue' /* webpackChunkName: "pages/products-soil" */).then(m => m.default || m)
-const _513e3c24 = () => import('..\\pages\\about_us\\index.vue' /* webpackChunkName: "pages/aboutus" */).then(m => m.default || m)
 const _53411612 = () => import('..\\pages\\contact_us\\index.vue' /* webpackChunkName: "pages/contactus" */).then(m => m.default || m)
+const _513e3c24 = () => import('..\\pages\\about_us\\index.vue' /* webpackChunkName: "pages/aboutus" */).then(m => m.default || m)
 
 
 
@@ -80,9 +80,9 @@ export function createRouter () {
 			name: "hours"
 		},
 		{
-			path: "/delivery",
-			component: _36ad3b80,
-			name: "delivery"
+			path: "/estimate",
+			component: _ead75ee8,
+			name: "estimate"
 		},
 		{
 			path: "/products",
@@ -90,9 +90,9 @@ export function createRouter () {
 			name: "products"
 		},
 		{
-			path: "/calculator",
-			component: _09e8181c,
-			name: "calculator"
+			path: "/delivery",
+			component: _36ad3b80,
+			name: "delivery"
 		},
 		{
 			path: "/services/grading",
@@ -125,14 +125,14 @@ export function createRouter () {
 			name: "products-soil"
 		},
 		{
-			path: "/about:us",
-			component: _513e3c24,
-			name: "aboutus"
-		},
-		{
 			path: "/contact:us",
 			component: _53411612,
 			name: "contactus"
+		},
+		{
+			path: "/about:us",
+			component: _513e3c24,
+			name: "aboutus"
 		}
     ],
     fallback: false

@@ -3,11 +3,18 @@
 
     <nav class="level">
       <div class="level-left">
-        Copyright © {{ currentYear }} American Topsoil
+        <p>
+          American Topsoil<br />
+          Copyright © {{ currentYear }}
+        </p>
       </div>
 
       <div class="level-item">
-        1-800-TOP-SOIL (1-800-867-7645)
+        <p class="has-text-centered">
+          <a href="tel:18008677645">1-800-TOP-SOIL (1-800-867-7645)</a><br />
+          <span class="icon"><i class="fa fa-envelope-o"></i></span>
+          <a href="mailto:americantopsoil@embarqmail.com">Email Us - americantopsoil@embarqmail.com</a>
+        </p>
       </div>
 
       <div class="level-right">

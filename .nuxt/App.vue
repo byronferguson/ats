@@ -16,7 +16,7 @@ let layouts = {
 }
 
 export default {
-  head: {"title":"American Topsoil","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"American Topsoil"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"},{"rel":"stylesheet","type":"text/css","href":"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"}],"style":[],"script":[]},
+  head: {"title":"American Topsoil","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"American Topsoil has served the Kansas City metro area for 20 years with quality topsoil, mulch and dirt."},{"hid":"keywords","name":"keywords","content":"top soil, dirt, soil, sell, pulverized, cheap, fill dirt, company, Olathe, Overland Park, Belton, Raymore, Grandview, Leawood, Gardner, farm, garden, yard, construction, dump truck, load"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"},{"rel":"stylesheet","type":"text/css","href":"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"}],"style":[],"script":[]},
   data: () => ({
     layout: null,
     layoutName: ''

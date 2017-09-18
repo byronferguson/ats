@@ -5,6 +5,7 @@
       <img src="~static/ats_logo.jpg" alt="American Topsoil" width="112" height="28">
     </a>
 
+    <div v-if="false">
     <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma">
       <span class="icon" style="color: #333;">
         <i class="fa fa-github"></i>
@@ -16,6 +17,7 @@
         <i class="fa fa-twitter"></i>
       </span>
     </a>
+    </div>
 
     <div class="navbar-burger burger" data-target="navMenuExample" @click="toggleMenu" :class="{'is-active': menuOpen}">
       <span></span>
@@ -51,12 +53,12 @@
           <a class="navbar-item" href="/services/delivery">
             Delivery
           </a>
-          <a class="navbar-item" href="/services/spreading">
-            Spreading
-          </a>
           <a class="navbar-item" href="/services/grading">
             Grading
           </a>          
+          <a class="navbar-item" href="/services/spreading">
+            Spreading
+          </a>
         </div>
       </div>
 
@@ -87,9 +89,9 @@
     </div>
 
     <div class="navbar-end">
-      <a class="navbar-item" href="/calculator">
+      <a class="navbar-item" href="/estimate">
         <b-icon icon="calculator" />
-        Calculator
+        Estimate
       </a>
 
       <a class="navbar-item" href="/contacts_us">

@@ -129,7 +129,22 @@ export default {
   }),
   computed: {
     filteredFAQs () {
-      return this.faqs
+      let filtered = []
+
+      if (this.search.length < 3) {
+        filtered = this.faqs
+      } else {
+        filtered = this.faqs.filter((item) => {
+          let result
+
+          result = item.question.toLowerCase().includes(this.search.toLowerCase())
+          result = item.answer.toLowerCase().includes(this.search.toLowerCase())
+
+          return result
+        }, this)
+      }
+
+      return filtered
     }
   }
 }

@@ -7,7 +7,8 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'American Topsoil' }
+      { hid: 'description', name: 'description', content: 'American Topsoil has served the Kansas City metro area for 20 years with quality topsoil, mulch and dirt.' },
+      { hid: 'keywords', name: 'keywords', content: 'top soil, dirt, soil, sell, pulverized, cheap, fill dirt, company, Olathe, Overland Park, Belton, Raymore, Grandview, Leawood, Gardner, farm, garden, yard, construction, dump truck, load' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
