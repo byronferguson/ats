@@ -9,8 +9,14 @@
   </section>
 
   <section class="section">
-      <div class="box has-text-centered">
-        This tool is intended to provide a rough estimate of the requested products and services you may require.
+      <div class="box">
+        <div class="has-text-centered"><b>This tool is intended to provide a rough estimate of the requested products and services you may require.</b></div>
+        <ol>
+          <li>Click "New Region" to add a new estimated region to the list</li>
+          <li>Complete the form for the new region</li>
+          <li>Select the product you wish are filling in the "region"</li>
+          <li>Click "Add Region" to add the estimate to your list</li>
+        </ol>
       </div>
   </section>
 
@@ -50,18 +56,20 @@
         </b-field>
 
         <b-field label="Product">
-          <b-select v-model="region.product.name" placeholder="Select a product" expanded>
+          <b-select v-model="region.product" placeholder="Select a product" expanded>
               <template v-for="product in products">
                 <optgroup :label="product.type" :key="product.type">
                   <template v-for="option in product.options">
-                    <option :value="option.name" :key="option.name">{{ option.name }}</option>
+                    <option :value="{ type: product.type, name: option.name, price: option.price }" :key="option.name">
+                      {{ option.name }} @ ${{ option.price.toFixed(2) }} / cubic yard
+                    </option>
                   </template>
                 </optgroup>
               </template>
           </b-select>
-      </b-field>
+        </b-field>
 
-        <button class="button is-success" @click="test">
+        <button class="button is-success" @click="clickAddRegion">
           <span class="icon"><i class="fa fa-plus" /></span>
           <span>Add Region</span>
         </button>
@@ -81,31 +89,48 @@
           :striped="true"
           :narrowed="false"
           :checkable="true"
-          :loading="false"
-          :mobile-cards="true"
-          :selected.sync="selected"
-          :checked-rows.sync="checkedRows">
+          :loading="!regions.length"
+          :mobile-cards="true">
 
           <template scope="props">
+            <b-table-column label="ID">
+              {{ props.index }}
+            </b-table-column>
+
             <b-table-column field="name" label="Region Name" sortable>
-                {{ props.row.name }}
+              {{ props.row.name }}
             </b-table-column>
 
             <b-table-column field="x.size" label="Length" sortable>
-                {{ props.row.x.size }} {{ props.row.x.unit }}
+              {{ props.row.x.size }} {{ props.row.x.unit }}
             </b-table-column>
 
             <b-table-column field="y.size" label="Width" sortable>
-                {{ props.row.y.size }} {{ props.row.y.unit }}
+              {{ props.row.y.size }} {{ props.row.y.unit }}
             </b-table-column>
 
             <b-table-column field="z.size" label="Depth" sortable>
-                {{ props.row.z.size }} {{ props.row.z.unit }}
+              {{ props.row.z.size }} {{ props.row.z.unit }}
             </b-table-column>
 
             <b-table-column field="volume" label="Volume" sortable>
-                {{ props.row.volume.toFixed(2) }} yd<sup>3</sup>
+              {{ props.row.volume.toFixed(2) }} yd<sup>3</sup>
             </b-table-column>
+
+            <b-table-column field="product.name" label="Product" sortable>
+              {{ props.row.product.type }} - {{ props.row.product.name }} @ ${{ props.row.product.price.toFixed(2) }} / cubic yard
+            </b-table-column>
+
+            <b-table-column field="subTotal" label="Estimate" sortable>
+              ${{ props.row.subTotal.toFixed(2) }}
+            </b-table-column>
+
+            <b-table-column label="Remove">
+              <button class="button is-danger" @click="clickRemoveRegion(props.index)">
+                <b-icon icon="times" />
+              </button>
+            </b-table-column>
+            
           </template>
 
           <div slot="empty" class="has-text-centered">
@@ -113,11 +138,25 @@
           </div>
         </b-table>
 
-        <b-field label="Volume">
-          <b-field>
-            <b-input v-model="totalVolume" readonly />
+        <b-field grouped position="is-centered">
+          <b-field label="Total Volume">
+            <b-field>
+              <b-input v-model="totalVolume" readonly />
+              <p class="control">
+                  <span class="button is-static">yd<sup>3</sup></span>
+              </p>
+            </b-field>
           </b-field>
-        </b-field>
+
+          <b-field label="Total Cost">
+            <b-field>
+              <p class="control">
+                  <span class="button is-static">$</span>
+              </p>
+              <b-input v-model="totalPrice" readonly />
+            </b-field>
+          </b-field>
+        </b-field grouped>
       </template>
       
     </article>
@@ -137,50 +176,26 @@ export default {
     ],
     selected: {},
     checkedRows: [],
-    region: {
-      name: '',
-      x: {
-        size: 0,
-        unit: 'ft'
-      },
-      y: {
-        size: 0,
-        unit: 'ft'
-      },
-      z: {
-        size: 0,
-        unit: 'in'
-      },
-      product: {
-        type: '',
-        name: '',
-        price: 0
-      },
-      volume: 0,
-      total: 0
-    }
+    region: {}
   }),
   computed: {
     ...mapGetters([
       'products',
-      'regions'
-    ]),
-    totalVolume () {
-      return this.region.x.size * this.region.y.size * this.region.z.size
-    }
+      'regions',
+      'totalVolume',
+      'totalPrice'
+    ])
   },
   methods: {
     ...mapActions([
-      'addRegion'
+      'addRegion',
+      'removeRegion'
     ]),
-    test () {
-      console.log(this.region, 'region')
-    },
     toggleCreateRegion () {
-      this.createRegion = true
+      this.createRegion = !this.createRegion
     },
-    resetRect () {
-      this.region = {
+    resetRegion () {
+      const baseRegion = {
         name: '',
         x: {
           size: 0,
@@ -194,14 +209,26 @@ export default {
           size: 0,
           unit: 'in'
         },
-        volume: 0
+        product: {
+          type: '',
+          name: '',
+          price: 0
+        },
+        volume: 0,
+        subTotal: 0
       }
+
+      this.region = { ...baseRegion }
     },
-    addRegion () {
+    clickAddRegion () {
       this.region.volume = this.calcVolume(this.region)
-      this.regions.push(this.region)
-      this.resetRect()
-      this.addRegion = false
+      this.region.subTotal = this.region.volume.toFixed(2) * this.region.product.price.toFixed(2)
+      this.addRegion(this.region)
+      this.resetRegion()
+      this.toggleCreateRegion()
+    },
+    clickRemoveRegion (index) {
+      this.removeRegion(index)
     },
     convertToInches (measure) {
       let newMeasure = {
@@ -236,6 +263,9 @@ export default {
       let volumeInInches = x * y * z
       return this.convertCubicInchesToCubicYards(volumeInInches)
     }
+  },
+  created () {
+    this.resetRegion()
   }
 }
 </script>
